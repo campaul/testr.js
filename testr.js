@@ -12,7 +12,7 @@
         this.run = function() {
             var results = {};
 
-            for(test in tests) {
+            for(var test in tests) {
                 try {
                     results[test] = tests[test]() ? 'pass' : 'fail';
                 } catch(e) {
@@ -26,12 +26,12 @@
 
     if($) {
         $.fn.testreport = function() {
-            for(argument in arguments) {
+            for(var argument in arguments) {
                 var testr = arguments[argument],
                     report = $('<div />').addClass('report'),
                     results = testr.run();
 
-                for(result in results) {
+                for(var result in results) {
                     report.append($('<div />').addClass('result').addClass(
                         results[result]).append(result)
                     );
