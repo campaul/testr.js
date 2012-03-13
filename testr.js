@@ -6,6 +6,7 @@
         this.group = group;
 
         this.addTest = function(name, fn) {
+            if (Object.prototype.toString.call(fn) !== '[object Function]') throw new TypeError('Test "' + name  + '" is not a function!');
             var args = Array.prototype.slice.call(arguments, 2);
             tests[name] = function() {
                 return fn.apply(null, args);
