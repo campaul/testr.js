@@ -1,0 +1,42 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #ccc;
+}
+
+h1 {
+    margin: 0.85em 0.25em 0.16em 0.25em;
+    text-align: center;
+    color: #333;
+}
+
+.report {
+    width: 32em;
+    margin: auto;
+    border: 1px solid #888;
+    background: #fff;
+    box-shadow: 4px 4px 0px #aaa;
+}
+
+.result {
+    padding: 0.25em 0.5em;
+    margin: 0.5em;
+    border: 1px solid;
+    line-height: 1.4em;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.pass {
+    background: #dff0d8;
+    color: #468847;
+}
+
+.fail {
+    background: #eed3d7;
+    color: #b94a48;
+}
+
+.error {
+    background: #fcf8e3;
+    color: #c09853;
+}
