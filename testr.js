@@ -6,7 +6,10 @@
         this.group = group;
 
         this.addTest = function(name, fn) {
-            tests[name] = fn;
+            var args = Array.prototype.slice.call(arguments, 2);
+            tests[name] = function() {
+                return fn.apply(null, args);
+            };
         };
 
         this.run = function() {
