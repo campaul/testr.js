@@ -5,7 +5,7 @@
 ## Creating a Test Group
 
 A group of tests is encapsulated in a `Testr` object.
-A test can be any function that returns a truthy value.
+A test can be any function that returns a boolean value.
 
 ```javascript
 var css = new Testr('CSS3');
@@ -30,17 +30,11 @@ console.log('border-radius : ' + results['border-radius']);
 console.log('box-shadow : ' + results['box-shadow']);
 ````
 
-## Using the jQuery Report Plugin
+## Generating Reports
 
-The following line will inject a test report into the selected component.
-If you want to easily create pretty test report pages, include testr.css.
-
-```javascript
-$('#report-container').testreport(css);
-```
-
-The test report plugin is capable of generating a report for multiple test groups as well.
+Reports are div elements that can be added to an HTML page.
+If you want to create pretty test report pages, include testr.css.
 
 ```javascript
-$('#report-container').testreport(test1, test2, test3);
+document.body.appendChild(css.report());
 ```
