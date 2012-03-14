@@ -1,4 +1,7 @@
-(function($) {
+(function(root) {
+    'use strict';
+
+    var slice = Array.prototype.slice;
 
     var Testr = function(group) {
         var tests = {};
@@ -6,10 +9,11 @@
         this.group = group;
 
         this.addTest = function(test, fn) {
-            if (Object.prototype.toString.call(fn) !== '[object Function]') {
+            var args = slice.call(arguments, 2);
+
+            if (Testr.type(fn) !== '[object Function]') {
                 console.warn('Ignoring non-callable test "' + test + '"');
             } else {
-                var args = Array.prototype.slice.call(arguments, 2);
                 tests[test] = function() {
                     return fn.apply(null, args);
                 };
@@ -17,9 +21,10 @@
         };
 
         this.run = function() {
-            var results = {};
+            var results = {},
+                test;
 
-            for(var test in tests) {
+            for(test in tests) {
                 try {
                     results[test] = tests[test]() ? 'pass' : 'fail';
                 } catch(e) {
@@ -30,27 +35,31 @@
 
             return results;
         };
-    };
 
-    if($) {
-        $.fn.testreport = function() {
-            for(var argument in arguments) {
-                var testr = arguments[argument],
-                    report = $('<div />').addClass('report'),
-                    results = testr.run();
+        this.report = function() {
+            var results = this.run(),
+                container = document.createElement('div'),
+                reportdiv = document.createElement('div'),
+                title = document.createElement('h1'),
+                result,
+                resultdiv;
 
-                for(var result in results) {
-                    report.append($('<div />').addClass('result').addClass(
-                        results[result]).append(result)
-                    );
-                };
-                
-                this.append($('<h1 />').append(testr.group)).append(report);
+            reportdiv.className = 'report';
+            title.innerHTML = this.group;
+
+            for(result in results) {
+                resultdiv = document.createElement('div');
+                resultdiv.className = 'result ' + results[result];
+                resultdiv.innerHTML = result;
+                reportdiv.appendChild(resultdiv);
             }
 
-            return this;
+            container.appendChild(title);
+            container.appendChild(reportdiv);
+
+            return container;
         };
-    }
+    };
 
     // See http://wiki.ecmascript.org/doku.php?id=harmony:egal
     Testr.egal = function(x, y) {
@@ -73,6 +82,54 @@
         return !Testr.is(x, y);
     };
 
-    this.Testr = Testr;
+    Testr.type = function(obj) {
+        return Object.prototype.toString.call(obj);
+    };
 
-})(typeof jQuery != 'undefined' ? jQuery : false, undefined);
+    Testr.isArguments = function(obj) {
+        return Testr.type(obj) == '[object Arguments]';
+    };
+
+    Testr.isArray = function(obj) {
+        return Testr.type(obj) == '[object Array]';
+    };
+
+    Testr.isBoolean = function(obj) {
+        return Testr.type(obj) == '[object Boolean]';
+    };
+
+    Testr.isDate = function(obj) {
+        return Testr.type(obj) == '[object Date]';
+    };
+
+    Testr.isFunction = function(obj) {
+        return Testr.type(obj) == '[object Function]';
+    };
+
+    Testr.isNaN = function(obj) {
+        return obj !== obj;
+    };
+
+    Testr.isNull = function(obj) {
+        return obj === null;
+    };
+
+    Testr.isNumber = function(obj) {
+        return Testr.type(obj) == '[object Number]';
+    };
+
+    Testr.isRegExp = function(obj) {
+        return Testr.type(obj) == '[object RegExp]';
+    };
+
+    Testr.isString = function(obj) {
+        return Testr.type(obj) == '[object String]';
+    };
+
+    Testr.isUndefined = function(obj) {
+        return obj === void 0;
+    };
+
+    root.Testr = Testr;
+
+})(this, undefined);
