@@ -1,6 +1,6 @@
 # testr.js
 
-**testr.js** is a micro-framework and optional jQuery plugin for unit testing Javascript.
+**testr.js** is a micro-framework for unit testing Javascript.
 
 ## Creating a Test Group
 
