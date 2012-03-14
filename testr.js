@@ -6,10 +6,14 @@
         this.group = group;
 
         this.addTest = function(test, fn) {
-            var args = Array.prototype.slice.call(arguments, 2);
-            tests[test] = function() {
-                return fn.apply(null, args);
-            };
+            if (Object.prototype.toString.call(fn) !== '[object Function]') {
+                console.warn('Ignoring non-callable test "' + test + '"');
+            } else {
+                var args = Array.prototype.slice.call(arguments, 2);
+                tests[test] = function() {
+                    return fn.apply(null, args);
+                };
+            }
         };
 
         this.run = function() {
@@ -20,7 +24,7 @@
                     results[test] = tests[test]() ? 'pass' : 'fail';
                 } catch(e) {
                     results[test] = 'error';
-                    console.error(e.name + ' in test "' + test + '" : ' + e.message + '.');
+                    console.error(e.name + ' in test "' + test + '" : ' + e.message);
                 }
             }
 
