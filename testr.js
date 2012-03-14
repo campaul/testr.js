@@ -5,9 +5,9 @@
 
         this.group = group;
 
-        this.addTest = function(name, fn) {
+        this.addTest = function(test, fn) {
             var args = Array.prototype.slice.call(arguments, 2);
-            tests[name] = function() {
+            tests[test] = function() {
                 return fn.apply(null, args);
             };
         };
@@ -20,6 +20,7 @@
                     results[test] = tests[test]() ? 'pass' : 'fail';
                 } catch(e) {
                     results[test] = 'error';
+                    console.error(e.name + ' in test "' + test + '" : ' + e.message + '.');
                 }
             }
 
@@ -60,6 +61,12 @@
         // isNaN is broken: it converts its argument to number, so
         // isNaN("foo") => true
         return x !== x && y !== y;
+    };
+
+    Testr.is = Testr.egal;
+
+    Testr.isnt = function(x, y) {
+        return !Testr.is(x, y);
     };
 
     this.Testr = Testr;
