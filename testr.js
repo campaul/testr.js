@@ -58,7 +58,7 @@
     };
 
     // See http://wiki.ecmascript.org/doku.php?id=harmony:egal
-    Testr.egal = function(x, y) {
+    Testr.is = function(x, y) {
         if (x === y) {
             // 0 === -0, but they are not identical
             return x !== 0 || 1 / x === 1 / y;
@@ -71,8 +71,6 @@
         // isNaN("foo") => true
         return x !== x && y !== y;
     };
-
-    Testr.is = Testr.egal;
 
     Testr.isnt = function(x, y) {
         return !Testr.is(x, y);
