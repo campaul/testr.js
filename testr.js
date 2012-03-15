@@ -11,13 +11,9 @@
         this.addTest = function(test, fn) {
             var args = slice.call(arguments, 2);
 
-            if (Testr.type(fn) !== '[object Function]') {
-                console.warn('Ignoring non-callable test "' + test + '"');
-            } else {
-                tests[test] = function() {
-                    return fn.apply(null, args);
-                };
-            }
+            tests[test] = function() {
+                return fn.apply(null, args);
+            };
         };
 
         this.run = function() {
