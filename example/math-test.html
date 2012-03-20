@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Math Test</title>
+        <link rel="stylesheet" type="text/css" href="../css/testr.css" />
+    </head>
+
+    <body>
+        <script type="text/javascript" src="../js/testr.js"></script>
+        <script type="text/javascript">
+            // This function is broken and will fail some tests.
+            function difference(x, y) {
+                // This should be Math.abs(x - y);
+                return x - y;
+            }
+
+            // This function behaves like it should.
+            function sum(x, y) {
+                return x + y;
+            }
+
+            var d = new Testr("Difference"),
+                s = new Testr("Sum");
+
+            d.addTest('difference( 3, 2 ) is 1', function() {
+                return difference(3, 2) == 1;
+            });
+
+            d.addTest('difference( 2, 3) is 1', function() {
+                return difference(2, 3) == 1;
+            });
+
+            d.addTest('difference( -3, 2 ) is 5', function() {
+                return difference(-3, 2) == 5;
+            });
+
+            d.addTest('difference( 2, -3 ) is 5', function() {
+                return difference(2, -3) == 5;
+            });
+
+            d.addTest('difference( -2, -3 ) is 1', function() {
+                return difference(-2, -3) == 1;
+            });
+
+            d.addTest('difference( -3, -2 ) is 1', function() {
+                return difference(-3, -2) == 1;
+            });
+
+            s.addTest('sum( 3, 2 ) is 5', function() {
+                return sum(3, 2) == 5;
+            });
+
+            s.addTest('sum( 2, 3 ) is 5', function() {
+                return sum(2, 3) == 5;
+            });
+
+            s.addTest('sum( -3, 2 ) is -1', function() {
+                return sum(-3, 2) == -1;
+            });
+
+            s.addTest('sum( 2, -3 ) is -1', function() {
+                return sum(2, -3) == -1;
+            });
+
+            s.addTest('sum( -2, -3 ) is -5', function() {
+                return sum(-2, -3) == -5;
+            });
+
+            s.addTest('sum( -3, -2 ) is -5', function() {
+                return sum(-3, -2) == -5;
+            });
+
+            document.body.appendChild(d.report());
+            document.body.appendChild(s.report());
+        </script>
+    </body>
+</html>
