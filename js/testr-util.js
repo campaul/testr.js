@@ -1,4 +1,4 @@
-(function(root) {
+(function(Testr) {
     'use strict';
 
     Testr.isnt = function(x, y) {
