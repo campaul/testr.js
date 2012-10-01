@@ -1,14 +1,15 @@
 (function(global) {
     'use strict';
 
-    var slice = Array.prototype.slice;
+    var Testr = global.Testr = {},
+        slice = Array.prototype.slice;
 
-    var Testr = function(group) {
+    Testr.Test = function(group) {
         var tests = {};
 
         this.group = group;
 
-        this.addTest = function(test, fn) {
+        this.add = function(test, fn) {
             var args = slice.call(arguments, 2);
 
             tests[test] = function() {
@@ -75,7 +76,5 @@
     Testr.isnt = function(x, y) {
         return !Testr.is(x, y);
     };
-
-    global.Testr = Testr;
 
 })(this);

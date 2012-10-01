@@ -18,54 +18,54 @@
                 return x + y;
             }
 
-            var d = new Testr("Difference"),
-                s = new Testr("Sum");
+            var d = new Testr.Test("Difference"),
+                s = new Testr.Test("Sum");
 
-            d.addTest('difference( 3, 2 ) is 1', function() {
+            d.add('difference( 3, 2 ) is 1', function() {
                 return difference(3, 2) == 1;
             });
 
-            d.addTest('difference( 2, 3) is 1', function() {
+            d.add('difference( 2, 3) is 1', function() {
                 return difference(2, 3) == 1;
             });
 
-            d.addTest('difference( -3, 2 ) is 5', function() {
+            d.add('difference( -3, 2 ) is 5', function() {
                 return difference(-3, 2) == 5;
             });
 
-            d.addTest('difference( 2, -3 ) is 5', function() {
+            d.add('difference( 2, -3 ) is 5', function() {
                 return difference(2, -3) == 5;
             });
 
-            d.addTest('difference( -2, -3 ) is 1', function() {
+            d.add('difference( -2, -3 ) is 1', function() {
                 return difference(-2, -3) == 1;
             });
 
-            d.addTest('difference( -3, -2 ) is 1', function() {
+            d.add('difference( -3, -2 ) is 1', function() {
                 return difference(-3, -2) == 1;
             });
 
-            s.addTest('sum( 3, 2 ) is 5', function() {
+            s.add('sum( 3, 2 ) is 5', function() {
                 return sum(3, 2) == 5;
             });
 
-            s.addTest('sum( 2, 3 ) is 5', function() {
+            s.add('sum( 2, 3 ) is 5', function() {
                 return sum(2, 3) == 5;
             });
 
-            s.addTest('sum( -3, 2 ) is -1', function() {
+            s.add('sum( -3, 2 ) is -1', function() {
                 return sum(-3, 2) == -1;
             });
 
-            s.addTest('sum( 2, -3 ) is -1', function() {
+            s.add('sum( 2, -3 ) is -1', function() {
                 return sum(2, -3) == -1;
             });
 
-            s.addTest('sum( -2, -3 ) is -5', function() {
+            s.add('sum( -2, -3 ) is -5', function() {
                 return sum(-2, -3) == -5;
             });
 
-            s.addTest('sum( -3, -2 ) is -5', function() {
+            s.add('sum( -3, -2 ) is -5', function() {
                 return sum(-3, -2) == -5;
             });
 

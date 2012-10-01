@@ -2,19 +2,19 @@
 
 **testr.js** is a micro-framework for unit testing Javascript.
 
-## Creating a Test Group
+## Creating a Test
 
-A group of tests is encapsulated in a `Testr` object.
-A test can be any function that returns a boolean value.
+A group of test cases is encapsulated in a `Test` object.
+A test case can be any function that returns a boolean value.
 
 ```javascript
-var media = new Testr('HTML5 Media');
+var media = new Testr.Test('HTML5 Media');
 
-media.addTest('Audio', function() {
+media.add('Audio', function() {
   return "HTMLAudioElement" in window;
 });
 
-media.addTest('Video', function() {
+media.add('Video', function() {
   return "HTMLVideoElement" in window;
 });
 ```
