@@ -1,4 +1,4 @@
-(function() {
+(function(global) {
     'use strict';
 
     var slice = Array.prototype.slice;
@@ -76,6 +76,6 @@
         return !Testr.is(x, y);
     };
 
-    this.Testr = Testr;
+    global.Testr = Testr;
 
-})();
+})(this);
