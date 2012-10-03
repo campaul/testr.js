@@ -8,11 +8,7 @@
             this.run = function (report) {
                 var test,
                     assert = function (value) {
-                        if (value) {
-                            report.pass(test);
-                        } else {
-                            report.fail(test);
-                        }
+                        return value ? report.pass(test) : report.fail(test);
                     };
 
                 report = {
