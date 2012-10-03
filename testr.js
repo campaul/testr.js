@@ -1,51 +1,60 @@
-(function(global) {
+(function (global) {
     'use strict';
 
     global.Testr = {
-        Test: function(group, tests) {
+        Test: function (group, tests) {
             this.group = group;
 
-            this.run = function(report) {
+            this.run = function (report) {
+                var test,
+                    assert = function (value) {
+                        if (value) {
+                            report.pass(test);
+                        } else {
+                            report.fail(test);
+                        }
+                    };
+
                 report = {
-                    pass: (report && report.pass) || function(name) {
-                        console.log('[PASS] ' + name);
+                    pass: (report && report.pass) || function (name) {
+                        global.console.log('[PASS] ' + name);
                     },
-    
-                    fail: (report && report.fail) || function(name) {
-                        console.log('[FAIL] ' + name);
+
+                    fail: (report && report.fail) || function (name) {
+                        global.console.log('[FAIL] ' + name);
                     }
                 };
 
-                for(var test in tests) {
-                    tests[test].call({
-                        assert: function(value) {
-                            value ? report.pass(test) : report.fail(test);
-                        }
-                    });
+                for (test in tests) {
+                    if (tests.hasOwnProperty(test)) {
+                        tests[test].call({
+                            assert: assert
+                        });
+                    }
                 }
-            },
+            };
 
-            this.report = function() {
-                var container = document.createElement('div'),
-                    reportdiv = document.createElement('div'),
-                    title = document.createElement('h1');
+            this.report = function () {
+                var container = global.document.createElement('div'),
+                    reportdiv = global.document.createElement('div'),
+                    title = global.document.createElement('h1');
 
                 reportdiv.className = 'report';
                 title.innerHTML = this.group;
 
                 function render(name, result) {
-                    var resultdiv = document.createElement('div');
+                    var resultdiv = global.document.createElement('div');
                     resultdiv.className = 'result ' + result;
                     resultdiv.innerHTML = name;
                     reportdiv.appendChild(resultdiv);
-                };
-                
+                }
+
                 this.run({
-                    pass: function(name) {
+                    pass: function (name) {
                         render('[PASS] ' + name, 'pass');
                     },
-                    
-                    fail: function(name) {
+
+                    fail: function (name) {
                         render('[FAIL] ' + name, 'fail');
                     }
                 });
@@ -58,7 +67,7 @@
         },
 
         // See http://wiki.ecmascript.org/doku.php?id=harmony:egal
-        is: function(x, y) {
+        is: function (x, y) {
             if (x === y) {
                 // 0 === -0, but they are not identical
                 return x !== 0 || 1 / x === 1 / y;
@@ -72,9 +81,9 @@
             return x !== x && y !== y;
         },
 
-        isnt: function(x, y) {
-            return !Testr.is(x, y);
+        isnt: function (x, y) {
+            return !global.Testr.is(x, y);
         }
     };
 
-})(this);
+}(this));
