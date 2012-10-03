@@ -18,59 +18,57 @@
                 return x + y;
             }
 
-            var d = new Testr.Test("Difference"),
-                s = new Testr.Test("Sum");
+            document.body.appendChild(new Testr.Test("Difference", {
+                'difference( 3, 2 ) is 1': function() {
+                    this.assert(difference(3, 2) == 1);
+                },
 
-            d.add('difference( 3, 2 ) is 1', function() {
-                this.assert(difference(3, 2) == 1);
-            });
+                'difference( 2, 3) is 1': function() {
+                    this.assert(difference(2, 3) == 1);
+                },
 
-            d.add('difference( 2, 3) is 1', function() {
-                this.assert(difference(2, 3) == 1);
-            });
+                'difference( -3, 2 ) is 5': function() {
+                    this.assert(difference(-3, 2) == 5);
+                },
 
-            d.add('difference( -3, 2 ) is 5', function() {
-                this.assert(difference(-3, 2) == 5);
-            });
+                'difference( 2, -3 ) is 5': function() {
+                    this.assert(difference(2, -3) == 5);
+                },
 
-            d.add('difference( 2, -3 ) is 5', function() {
-                this.assert(difference(2, -3) == 5);
-            });
+                'difference( -2, -3 ) is 1': function() {
+                    this.assert(difference(-2, -3) == 1);
+                },
 
-            d.add('difference( -2, -3 ) is 1', function() {
-                this.assert(difference(-2, -3) == 1);
-            });
+                'difference( -3, -2 ) is 1': function() {
+                    this.assert(difference(-3, -2) == 1);
+                }
+            }).report());
+            
+            document.body.appendChild(new Testr.Test("Sum", {
+                'sum( 3, 2 ) is 5': function() {
+                    this.assert(sum(3, 2) == 5);
+                },
 
-            d.add('difference( -3, -2 ) is 1', function() {
-                this.assert(difference(-3, -2) == 1);
-            });
+                'sum( 2, 3 ) is 5': function() {
+                    this.assert(sum(2, 3) == 5);
+                },
 
-            s.add('sum( 3, 2 ) is 5', function() {
-                this.assert(sum(3, 2) == 5);
-            });
+                'sum( -3, 2 ) is -1': function() {
+                    this.assert(sum(-3, 2) == -1);
+                },
 
-            s.add('sum( 2, 3 ) is 5', function() {
-                this.assert(sum(2, 3) == 5);
-            });
+                'sum( 2, -3 ) is -1': function() {
+                    this.assert(sum(2, -3) == -1);
+                },
 
-            s.add('sum( -3, 2 ) is -1', function() {
-                this.assert(sum(-3, 2) == -1);
-            });
+                'sum( -2, -3 ) is -5': function() {
+                    this.assert(sum(-2, -3) == -5);
+                },
 
-            s.add('sum( 2, -3 ) is -1', function() {
-                this.assert(sum(2, -3) == -1);
-            });
-
-            s.add('sum( -2, -3 ) is -5', function() {
-                this.assert(sum(-2, -3) == -5);
-            });
-
-            s.add('sum( -3, -2 ) is -5', function() {
-                this.assert(sum(-3, -2) == -5);
-            });
-
-            document.body.appendChild(d.report());
-            document.body.appendChild(s.report());
+                'sum( -3, -2 ) is -5': function() {
+                    this.assert(sum(-3, -2) == -5);
+                }
+            }).report());
         </script>
     </body>
 </html>
