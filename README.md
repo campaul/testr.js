@@ -42,8 +42,8 @@ media.run({
 
 ## Generating Reports
 
-Reports are pre-rolled DOM elements that can be added to a web page.
-If you want to create pretty test report pages, include testr.css.
+Reports are pre-rolled DOM elements that can be easily added to a web page.
+If you want to create pretty test report pages, include `testr.css`.
 
 ```javascript
 document.body.appendChild(media.report());
