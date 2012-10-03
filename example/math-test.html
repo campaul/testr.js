@@ -22,51 +22,51 @@
                 s = new Testr.Test("Sum");
 
             d.add('difference( 3, 2 ) is 1', function() {
-                return difference(3, 2) == 1;
+                this.assert(difference(3, 2) == 1);
             });
 
             d.add('difference( 2, 3) is 1', function() {
-                return difference(2, 3) == 1;
+                this.assert(difference(2, 3) == 1);
             });
 
             d.add('difference( -3, 2 ) is 5', function() {
-                return difference(-3, 2) == 5;
+                this.assert(difference(-3, 2) == 5);
             });
 
             d.add('difference( 2, -3 ) is 5', function() {
-                return difference(2, -3) == 5;
+                this.assert(difference(2, -3) == 5);
             });
 
             d.add('difference( -2, -3 ) is 1', function() {
-                return difference(-2, -3) == 1;
+                this.assert(difference(-2, -3) == 1);
             });
 
             d.add('difference( -3, -2 ) is 1', function() {
-                return difference(-3, -2) == 1;
+                this.assert(difference(-3, -2) == 1);
             });
 
             s.add('sum( 3, 2 ) is 5', function() {
-                return sum(3, 2) == 5;
+                this.assert(sum(3, 2) == 5);
             });
 
             s.add('sum( 2, 3 ) is 5', function() {
-                return sum(2, 3) == 5;
+                this.assert(sum(2, 3) == 5);
             });
 
             s.add('sum( -3, 2 ) is -1', function() {
-                return sum(-3, 2) == -1;
+                this.assert(sum(-3, 2) == -1);
             });
 
             s.add('sum( 2, -3 ) is -1', function() {
-                return sum(2, -3) == -1;
+                this.assert(sum(2, -3) == -1);
             });
 
             s.add('sum( -2, -3 ) is -5', function() {
-                return sum(-2, -3) == -5;
+                this.assert(sum(-2, -3) == -5);
             });
 
             s.add('sum( -3, -2 ) is -5', function() {
-                return sum(-3, -2) == -5;
+                this.assert(sum(-3, -2) == -5);
             });
 
             document.body.appendChild(d.report());
