@@ -33,22 +33,29 @@
         };
 
         this.report = function() {
-            var results = this.run(),
-                container = document.createElement('div'),
+            var container = document.createElement('div'),
                 reportdiv = document.createElement('div'),
-                title = document.createElement('h1'),
-                result,
-                resultdiv;
+                title = document.createElement('h1');
 
             reportdiv.className = 'report';
             title.innerHTML = this.group;
 
-            for(result in results) {
-                resultdiv = document.createElement('div');
-                resultdiv.className = 'result ' + results[result];
-                resultdiv.innerHTML = result;
+            function render(name, result) {
+                var resultdiv = document.createElement('div');
+                resultdiv.className = 'result ' + result;
+                resultdiv.innerHTML = name;
                 reportdiv.appendChild(resultdiv);
-            }
+            };
+            
+            this.run({
+                pass: function(name) {
+                    render('[PASS] ' + name, 'pass');
+                },
+                
+                fail: function(name) {
+                    render('[FAIL] ' + name, 'fail');
+                }
+            });
 
             container.appendChild(title);
             container.appendChild(reportdiv);
