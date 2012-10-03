@@ -1,8 +1,7 @@
 (function(global) {
     'use strict';
 
-    var Testr = global.Testr = {},
-        slice = Array.prototype.slice;
+    var Testr = global.Testr = {};
 
     Testr.Test = function(group) {
         var tests = {};
@@ -10,27 +9,27 @@
         this.group = group;
 
         this.add = function(test, fn) {
-            var args = slice.call(arguments, 2);
-
-            tests[test] = function() {
-                return fn.apply(null, args);
-            };
+            tests[test] = fn;
         };
 
-        this.run = function() {
-            var results = {},
-                test;
-
-            for(test in tests) {
-                try {
-                    results[test] = tests[test]() ? 'pass' : 'fail';
-                } catch(e) {
-                    results[test] = 'error';
-                    console.error(e.name + ' in test "' + test + '" : ' + e.message);
+        this.run = function(report) {
+            report = {
+                pass: (report && report.pass) || function(name) {
+                    console.log('[PASS] ' + name);
+                },
+ 
+                fail: (report && report.fail) || function(name) {
+                    console.log('[FAIL] ' + name);
                 }
-            }
+            };
 
-            return results;
+            for(var test in tests) {
+                tests[test].call({
+                    assert: function(value) {
+                        value ? report.pass(test) : report.fail(test);
+                    }
+                });
+            }
         };
 
         this.report = function() {
