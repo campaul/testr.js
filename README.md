@@ -8,14 +8,14 @@ A group of test cases is encapsulated in a `Test` object.
 A test case can be any function that asserts a boolean value.
 
 ```javascript
-var media = new Testr.Test('HTML5 Media');
+var media = new Testr.Test('HTML5 Media', {
+    'Audio': function() {
+      this.assert("HTMLAudioElement" in window);
+    }),
 
-media.add('Audio', function() {
-  this.assert("HTMLAudioElement" in window);
-});
-
-media.add('Video', function() {
-  this.assert("HTMLVideoElement" in window);
+    'Video': function() {
+      this.assert("HTMLVideoElement" in window);
+    })
 });
 ```
 
