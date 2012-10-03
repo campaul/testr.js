@@ -10,11 +10,11 @@ A test case can be any function that asserts a boolean value.
 ```javascript
 var media = new Testr.Test('HTML5 Media', {
     'Audio': function() {
-      this.assert("HTMLAudioElement" in window);
+        this.assert("HTMLAudioElement" in window);
     }),
 
     'Video': function() {
-      this.assert("HTMLVideoElement" in window);
+        this.assert("HTMLVideoElement" in window);
     })
 });
 ```
