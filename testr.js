@@ -3,14 +3,8 @@
 
     var Testr = global.Testr = {};
 
-    Testr.Test = function(group) {
-        var tests = {};
-
+    Testr.Test = function(group, tests) {
         this.group = group;
-
-        this.add = function(test, fn) {
-            tests[test] = fn;
-        };
 
         this.run = function(report) {
             report = {
