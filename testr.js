@@ -8,23 +8,21 @@
             this.run = function (report) {
                 var test,
                     assert = function (value) {
-                        return value ? report.pass(this.name) : report.fail(this.name);
+                        if (value) {
+                            ((report && report.pass) || function (name) {
+                                global.console.log('[PASS] ' + name);
+                            })(this.name);
+                        } else {
+                            ((report && report.fail) || function (name) {
+                                global.console.log('[FAIL] ' + name);
+                            })(this.name);
+                        }
                     };
-
-                report = {
-                    pass: (report && report.pass) || function (name) {
-                        global.console.log('[PASS] ' + name);
-                    },
-
-                    fail: (report && report.fail) || function (name) {
-                        global.console.log('[FAIL] ' + name);
-                    }
-                };
 
                 for (test in tests) {
                     if (tests.hasOwnProperty(test)) {
-                        (function(test, name) {
-                            setTimeout(function() {
+                        (function (test, name) {
+                            setTimeout(function () {
                                 test.call({
                                     assert: assert,
                                     name: name
