@@ -8,7 +8,7 @@
             this.run = function (report) {
                 var test,
                     assert = function (value) {
-                        return value ? report.pass(test) : report.fail(test);
+                        return value ? report.pass(this.name) : report.fail(this.name);
                     };
 
                 report = {
@@ -23,9 +23,14 @@
 
                 for (test in tests) {
                     if (tests.hasOwnProperty(test)) {
-                        tests[test].call({
-                            assert: assert
-                        });
+                        (function(test, name) {
+                            setTimeout(function() {
+                                test.call({
+                                    assert: assert,
+                                    name: name
+                                });
+                            });
+                        })(tests[test], test);
                     }
                 }
             };
