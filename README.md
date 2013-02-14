@@ -1,6 +1,6 @@
 # testr.js
 
-**testr.js** is a micro-framework for unit testing Javascript.
+**testr.js** is a micro-framework for unit testing JavaScript.
 
 ## Basic Usage
 
@@ -26,16 +26,16 @@ You can customize reports by overriding `T.pass`, `T.fail`, and `T.complete`.
 
 ```javascript
 T.pass = function (test) {
-    document.write(test + ' passed.' + '<br />');
+    document.write(test + ' passed.<br />');
 };
 
 T.fail = function (test, error) {
-    document.write(test + ' failed.' + '<br />');
+    document.write(test + ' failed.<br />');
 };
 
 T.complete = function (passed, failed, time) {
-    document.write(pass + ' tests passed.' + '<br />');
-    document.write(fail + ' tests failed.' + '<br />');
-    document.write(time + ' milliseconds.');
+    document.write(pass + ' tests passed.<br />');
+    document.write(fail + ' tests failed.<br />');
+    document.write(time + ' milliseconds.<br />');
 };
 ```
