@@ -1,88 +1,80 @@
 (function (global) {
     'use strict';
 
-    global.Testr = {
-        Test: function (group, tests) {
-            this.group = group;
+    var T = {},
+        tests = {};
 
-            this.run = function (report) {
-                var test,
-                    assert = function (value) {
-                        if (value) {
-                            ((report && report.pass) || function (name) {
-                                global.console.log('[PASS] ' + name);
-                            })(this.name);
-                        } else {
-                            ((report && report.fail) || function (name) {
-                                global.console.log('[FAIL] ' + name);
-                            })(this.name);
-                        }
-                    };
+    T.test = function (name, fn) {
+        tests[name] = fn;
+    };
 
-                for (test in tests) {
+    T.pass = function (test) {
+        console.log('\u001b[32m[PASS]\u001b[0m ' + test);
+    };
+
+    T.fail = function (test, error) {
+        console.log('\u001b[31m[FAIL]\u001b[0m ' + test);
+        console.log(error.stack);
+    };
+
+    T.complete = function (passed, failed, time) {
+        console.log([
+            passed, 'passed and',
+            failed, 'failed in',
+            time / 1000, 'seconds.'
+        ].join(' '));
+    };
+
+    T.time = function (fn) {
+        var start = new Date().getTime();
+        fn();
+        return new Date().getTime() - start;
+    };
+
+    T.run = function () {
+        var passed = 0,
+            failed = 0,
+            time = T.time(function () {
+                for (var test in tests) {
                     if (tests.hasOwnProperty(test)) {
-                        (function (test, name) {
-                            setTimeout(function () {
-                                test.call({
-                                    assert: assert,
-                                    name: name
-                                });
-                            });
-                        })(tests[test], test);
+                        try {
+                            tests[test]();
+                            passed = passed + 1;
+                            T.pass(test);
+                        } catch (error) {
+                            failed = failed + 1;
+                            T.fail(test, error);
+                        }
                     }
                 }
-            };
+            });
 
-            this.report = function () {
-                var container = global.document.createElement('div'),
-                    reportdiv = global.document.createElement('div'),
-                    title = global.document.createElement('h1');
+        T.complete(passed, failed, time);
+    };
 
-                reportdiv.className = 'report';
-                title.innerHTML = this.group;
-
-                function render(name, result) {
-                    var resultdiv = global.document.createElement('div');
-                    resultdiv.className = 'result ' + result;
-                    resultdiv.innerHTML = name;
-                    reportdiv.appendChild(resultdiv);
-                }
-
-                this.run({
-                    pass: function (name) {
-                        render('[PASS] ' + name, 'pass');
-                    },
-
-                    fail: function (name) {
-                        render('[FAIL] ' + name, 'fail');
-                    }
-                });
-
-                container.appendChild(title);
-                container.appendChild(reportdiv);
-
-                return container;
-            };
-        },
-
-        // See http://wiki.ecmascript.org/doku.php?id=harmony:egal
-        is: function (x, y) {
-            if (x === y) {
-                // 0 === -0, but they are not identical
-                return x !== 0 || 1 / x === 1 / y;
-            }
-
-            // NaN !== NaN, but they are identical.
-            // NaNs are the only non-reflexive value, i.e., if x !== x,
-            // then x is a NaN.
-            // isNaN is broken: it converts its argument to number, so
-            // isNaN("foo") => true
-            return x !== x && y !== y;
-        },
-
-        isnt: function (x, y) {
-            return !global.Testr.is(x, y);
+    T.assert = function (val) {
+        if (!val) {
+            var e = new Error(val);
+            e.name = "AssertionError";
+            throw e;
         }
     };
+
+    // See http://wiki.ecmascript.org/doku.php?id=harmony:egal
+    T.equal = function (x, y) {
+        if (x === y) {
+            // 0 === -0, but they are not identical
+            return x !== 0 || 1 / x === 1 / y;
+        }
+
+        // NaN !== NaN, but they are identical.
+        // NaNs are the only non-reflexive value, i.e., if x !== x,
+        // then x is a NaN.
+        // isNaN is broken: it converts its argument to number, so
+        // isNaN("foo") => true
+        return x !== x && y !== y;
+    };
+
+    global.T = T;
 
 }(this));

@@ -2,49 +2,40 @@
 
 **testr.js** is a micro-framework for unit testing Javascript.
 
-## Creating a Test
+## Basic Usage
 
-A group of test cases is encapsulated in a `Test` object.
-A test case can be any function that asserts a boolean value.
+Using **teste.js** is simple. Just include testr, create some tests, and run.
 
 ```javascript
-var media = new Testr.Test('HTML5 Media', {
-    'Audio': function() {
-        this.assert("HTMLAudioElement" in window);
-    }),
+T = require('testr').T;
 
-    'Video': function() {
-        this.assert("HTMLVideoElement" in window);
-    })
+T.test('this test will pass', function () {
+    T.assert(true);
 });
+
+T.test('this test will fail', function () {
+    T.assert(false);
+});
+
+T.run();
 ```
 
-## Processing Results
+## Custom Reports
 
-By default, test results are logged to the console. You can also provide your
-own result handlers if you wish.
-
-```javascript
-// Log test results to the console using default handlers
-media.run();
-
-// Write test results to the page using custom handlers
-media.run({
-    pass: function(test) {
-        document.write(test + ' passed.');
-    },
-    
-    fail: function(test) {
-        document.write(test + ' failed.');
-    }
-});
-````
-
-## Generating Reports
-
-Reports are pre-rolled DOM elements that can be easily added to a web page.
-If you want to create pretty test report pages, include `testr.css`.
+You can customize reports by overriding `T.pass`, `T.fail`, and `T.complete`.
 
 ```javascript
-document.body.appendChild(media.report());
+T.pass = function (test) {
+    document.write(test + ' passed.' + '<br />');
+};
+
+T.fail = function (test, error) {
+    document.write(test + ' failed.' + '<br />');
+};
+
+T.complete = function (passed, failed, time) {
+    document.write(pass + ' tests passed.' + '<br />');
+    document.write(fail + ' tests failed.' + '<br />');
+    document.write(time + ' milliseconds.');
+};
 ```
