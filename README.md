@@ -4,7 +4,7 @@
 
 ## Basic Usage
 
-Using **teste.js** is simple. Just include testr, create some tests, and run.
+Using **testr.js** is simple. Just include testr, create some tests, and run.
 
 ```javascript
 T = require('testr').T;
