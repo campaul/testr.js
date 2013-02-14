@@ -34,8 +34,8 @@ T.fail = function (test, error) {
 };
 
 T.complete = function (passed, failed, time) {
-    document.write(pass + ' tests passed.<br />');
-    document.write(fail + ' tests failed.<br />');
+    document.write(passed + ' tests passed.<br />');
+    document.write(failed + ' tests failed.<br />');
     document.write(time + ' milliseconds.<br />');
 };
 ```
